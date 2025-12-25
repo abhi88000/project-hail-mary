@@ -16,8 +16,7 @@ document.getElementById("patientForm").addEventListener("submit", async (e) => {
     message.innerText = "Patient created successfully";
     message.style.color = "green";
   } catch (err) {
-    message.innerText = "Patient already exists or invalid data";
+    message.innerText = err;   // 👈 show backend message
     message.style.color = "red";
   }
 });
-
