@@ -20,29 +20,42 @@ public class PatientService {
 
     public PatientResponse createPatient(PatientRequest request) {
 
+        // 1. Validate phone number (business rule)
+        validatePhone(request.getPhone());
+
+        // 2. Fetch tenant entity (foreign key resolution)
         Tenant tenant = tenantRepository.findById(request.getTenantId())
                 .orElseThrow(() -> new RuntimeException("Tenant not found"));
 
+        // 3. Create entity from DTO
         Patient patient = new Patient();
         patient.setTenant(tenant);
         patient.setFullName(request.getFullName());
         patient.setPhone(request.getPhone());
         patient.setEmail(request.getEmail());
 
+        // 4. Persist entity
         Patient saved = patientRepository.save(patient);
 
+        // 5. Convert entity to response DTO
         return mapToResponse(saved);
     }
 
-    private PatientResponse mapToResponse(Patient p) {
-        PatientResponse res = new PatientResponse();
+    // ---- Helper methods ----
 
-        res.setId(p.getId());
-        res.setTenantId(p.getTenant().getId());
-        res.setFullName(p.getFullName());
-        res.setPhone(p.getPhone());
-        res.setEmail(p.getEmail());
+    private void validatePhone(String phone) {
+        if (phone == null || !phone.matches("^[6-9][0-9]{9}$")) {
+            throw new IllegalArgumentException("Invalid phone number format");
+        }
+    }
 
-        return res;
+    private PatientResponse mapToResponse(Patient patient) {
+        PatientResponse response = new PatientResponse();
+        response.setId(patient.getId());
+        response.setTenantId(patient.getTenant().getId());
+        response.setFullName(patient.getFullName());
+        response.setPhone(patient.getPhone());
+        response.setEmail(patient.getEmail());
+        return response;
     }
 }
