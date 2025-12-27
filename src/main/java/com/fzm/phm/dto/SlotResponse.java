@@ -9,19 +9,11 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class SlotRequest {
+public class SlotResponse {
 
-    private UUID tenantId;
-    private UUID doctorId;
-
-    private LocalDate startDate;
-    private int numberOfDays;
-
-    private LocalTime loginTime;
-    private LocalTime logoutTime;
-
-    private LocalTime breakStart;
-    private LocalTime breakEnd;
-
-    private int slotDurationMinutes; // default 15
+    private UUID slotId;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String status;
 }
