@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(originPatterns = "*")
 public class SlotController {
 
-    @Autowired
-    private SlotService slotService;
+    private final SlotService slotService;
+
+    public SlotController(SlotService slotService) {
+        this.slotService = slotService;
+    }
 
     @PostMapping
-    public ResponseEntity<String> generateSlots(@RequestBody SlotRequest request) {
-
-        int count = slotService.generateSlots(request);
-
-        return ResponseEntity.ok(count + " slots created successfully");
+    public ResponseEntity<?> createSlots(@RequestBody SlotRequest request) {
+        return ResponseEntity.ok(slotService.createSlots(request));
     }
 }
+

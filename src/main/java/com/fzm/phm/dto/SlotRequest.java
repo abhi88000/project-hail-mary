@@ -1,27 +1,63 @@
 package com.fzm.phm.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
-@Getter
-@Setter
 public class SlotRequest {
 
     private UUID tenantId;
     private UUID doctorId;
-
-    private LocalDate startDate;
-    private int numberOfDays;
-
+    private LocalDate date;
     private LocalTime loginTime;
     private LocalTime logoutTime;
+    private int slotDurationMinutes;
 
-    private LocalTime breakStart;
-    private LocalTime breakEnd;
+    public UUID getTenantId() {
+        return tenantId;
+    }
 
-    private int slotDurationMinutes; // default 15
+    public void setTenantId(UUID tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public UUID getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(UUID doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(LocalTime loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public LocalTime getLogoutTime() {
+        return logoutTime;
+    }
+
+    public void setLogoutTime(LocalTime logoutTime) {
+        this.logoutTime = logoutTime;
+    }
+
+    public int getSlotDurationMinutes() {
+        return slotDurationMinutes;
+    }
+
+    public void setSlotDurationMinutes(int slotDurationMinutes) {
+        this.slotDurationMinutes = slotDurationMinutes;
+    }
 }
